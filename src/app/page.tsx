@@ -18,16 +18,19 @@ import { models } from "../data/models";
 import { SafeModeSelector } from "@/components/safe-mode-selector";
 import { RandomSeedSelector } from "@/components/random-seed-selector";
 import { SystemMessageSelector } from "@/components/system-message-selector";
-import { APIKeyDialog } from "@/components/api-key-dialog";
+import { ApiKeyDialog } from "@/components/api-key-dialog";
 import { useStore } from "@/hooks/use-store";
 import { ModelType } from "@/types/Models";
 
 export default function Home() {
+  const apiKey = useStore((state) => state.apiKey);
   const availableModels = useStore((state) => state.availableModels);
   const setAvailableModels = useStore((state) => state.setAvailableModels);
 
+  const [allowApiKeyDialogClose, setAllowApiKeyDialogClose] =
+    React.useState<boolean>(false);
   const [openSettings, setOpenSettings] = React.useState<boolean>(true);
-  const [isAPIKeyDialogOpen, setIsAPIKeyDialogOpen] =
+  const [isApiKeyDialogOpen, setIsApiKeyDialogOpen] =
     React.useState<boolean>(false);
 
   const handleToggleSettings = () => {
@@ -37,6 +40,14 @@ export default function Home() {
   const handleTabChange = (value: string) => {
     setAvailableModels(models, value as ModelType);
   };
+
+  React.useEffect(() => {
+    if (apiKey == "") {
+      setIsApiKeyDialogOpen(true);
+    } else {
+      setAllowApiKeyDialogClose(true);
+    }
+  }, [apiKey]);
 
   return (
     <>
@@ -54,7 +65,7 @@ export default function Home() {
               Toggle Settings
             </Button>
             <PresetActions
-              onAPIKeyChangeClick={() => setIsAPIKeyDialogOpen(true)}
+              onApiKeyChangeClick={() => setIsApiKeyDialogOpen(true)}
             />
           </div>
         </div>
@@ -127,9 +138,13 @@ export default function Home() {
             </div>
           </div>
         </Tabs>
-        <APIKeyDialog
-          open={isAPIKeyDialogOpen}
-          onOpenChange={() => setIsAPIKeyDialogOpen(false)}
+        <ApiKeyDialog
+          open={isApiKeyDialogOpen}
+          onOpenChange={(force: boolean) => {
+            if (allowApiKeyDialogClose || force) {
+              setIsApiKeyDialogOpen(false);
+            }
+          }}
         />
       </div>
     </>

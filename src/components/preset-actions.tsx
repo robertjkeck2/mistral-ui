@@ -10,10 +10,10 @@ import {
 } from "@/ui/dropdown-menu";
 
 interface PresetActionsProps {
-  onAPIKeyChangeClick: () => void;
+  onApiKeyChangeClick: () => void;
 }
 
-export function PresetActions({ onAPIKeyChangeClick }: PresetActionsProps) {
+export function PresetActions({ onApiKeyChangeClick }: PresetActionsProps) {
   const openDocs = () => {
     window.open("https://docs.mistral.ai", "_blank");
   };
@@ -28,7 +28,7 @@ export function PresetActions({ onAPIKeyChangeClick }: PresetActionsProps) {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem onSelect={() => onAPIKeyChangeClick()}>
+          <DropdownMenuItem onSelect={() => onApiKeyChangeClick()}>
             Update API Key
           </DropdownMenuItem>
           <DropdownMenuSeparator />
