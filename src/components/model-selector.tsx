@@ -11,7 +11,6 @@ import {
   Command,
   CommandEmpty,
   CommandGroup,
-  CommandInput,
   CommandItem,
   CommandList,
 } from "@/ui/command";
@@ -19,31 +18,33 @@ import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/ui/hover-card";
 import { Label } from "@/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/ui/popover";
 
-import { Model, ModelType } from "../data/models";
+import { useStore } from "@/hooks/use-store";
+import { Model } from "@/types/Models";
 
 interface ModelSelectorProps extends PopoverProps {
-  types: readonly ModelType[];
   models: Model[];
 }
 
-export function ModelSelector({ models, types, ...props }: ModelSelectorProps) {
-  const [open, setOpen] = React.useState(false);
-  const [selectedModel, setSelectedModel] = React.useState<Model>(models[0]);
+export function ModelSelector({ models, ...props }: ModelSelectorProps) {
+  const selectedModel = useStore((state) => state.model);
+  const setModel = useStore((state) => state.setModel);
+
+  const [open, setOpen] = React.useState<boolean>(false);
   const [peekedModel, setPeekedModel] = React.useState<Model>(models[0]);
 
   return (
     <div className="grid gap-2">
       <HoverCard openDelay={200}>
         <HoverCardTrigger asChild>
-          <Label htmlFor="model">Model</Label>
+          <Label>Model</Label>
         </HoverCardTrigger>
         <HoverCardContent
           align="start"
           className="w-[260px] text-sm"
           side="left"
         >
-          The model which will generate the completion. Some models are suitable
-          for natural language tasks, others specialize in code. Learn more.
+          The model which will generate the completion. Selecting an embedding
+          model will change the output to a vector.
         </HoverCardContent>
       </HoverCard>
       <Popover open={open} onOpenChange={setOpen} {...props}>
@@ -55,7 +56,7 @@ export function ModelSelector({ models, types, ...props }: ModelSelectorProps) {
             aria-label="Select a model"
             className="w-full justify-between"
           >
-            {selectedModel ? selectedModel.name : "Select a model..."}
+            {selectedModel ? selectedModel : "Select a model..."}
             <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
@@ -72,41 +73,26 @@ export function ModelSelector({ models, types, ...props }: ModelSelectorProps) {
                 <div className="text-sm text-muted-foreground">
                   {peekedModel.description}
                 </div>
-                {peekedModel.strengths ? (
-                  <div className="mt-4 grid gap-2">
-                    <h5 className="text-sm font-medium leading-none">
-                      Strengths
-                    </h5>
-                    <ul className="text-sm text-muted-foreground">
-                      {peekedModel.strengths}
-                    </ul>
-                  </div>
-                ) : null}
               </div>
             </HoverCardContent>
             <Command loop>
-              <CommandList className="h-[var(--cmdk-list-height)] max-h-[400px]">
-                <CommandInput placeholder="Search Models..." />
-                <CommandEmpty>No Models found.</CommandEmpty>
+              <CommandList className="h-auto max-h-[400px]">
+                <CommandEmpty>No models found.</CommandEmpty>
                 <HoverCardTrigger />
-                {types.map((type) => (
-                  <CommandGroup key={type} heading={type}>
-                    {models
-                      .filter((model) => model.type === type)
-                      .map((model) => (
-                        <ModelItem
-                          key={model.id}
-                          model={model}
-                          isSelected={selectedModel?.id === model.id}
-                          onPeek={(model) => setPeekedModel(model)}
-                          onSelect={() => {
-                            setSelectedModel(model);
-                            setOpen(false);
-                          }}
-                        />
-                      ))}
-                  </CommandGroup>
-                ))}
+                <CommandGroup key="models" heading="">
+                  {models.map((model) => (
+                    <ModelItem
+                      key={model.id}
+                      model={model}
+                      isSelected={selectedModel === model.name}
+                      onPeek={(model) => setPeekedModel(model)}
+                      onSelect={() => {
+                        setModel(model.name);
+                        setOpen(false);
+                      }}
+                    />
+                  ))}
+                </CommandGroup>
               </CommandList>
             </Command>
           </HoverCard>
@@ -129,7 +115,8 @@ function ModelItem({ model, isSelected, onSelect, onPeek }: ModelItemProps) {
   useMutationObserver(ref, (mutations) => {
     for (const mutation of mutations) {
       if (mutation.type === "attributes") {
-        if (mutation.attributeName === "aria-selected") {
+        const { ariaSelected } = mutation.target as HTMLDivElement;
+        if (ariaSelected === "true") {
           onPeek(model);
         }
       }
