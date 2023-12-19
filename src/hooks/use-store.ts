@@ -32,7 +32,7 @@ export const useStore = create<Store>((set) => ({
   topP: 1,
   randomSeed: 0,
   systemMessage: "",
-  availableModels: models,
+  availableModels: models.filter((model) => model.type === "chat"),
   setApiKey: (apiKey: string) => set({ apiKey }),
   setModel: (model: string) => set({ model }),
   setSafeMode: (safeMode: boolean) => set({ safeMode }),
