@@ -2,11 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import {
-  CounterClockwiseClockIcon,
-  ChatBubbleIcon,
-  RulerSquareIcon,
-} from "@radix-ui/react-icons";
+import { ChatBubbleIcon, RulerSquareIcon } from "@radix-ui/react-icons";
 
 import { Button } from "@/ui/button";
 import { Separator } from "@/ui/separator";
@@ -22,28 +18,32 @@ import { Model, ModelType, models, types } from "../data/models";
 import { SafeModeSelector } from "@/components/safe-mode-selector";
 import { RandomSeedSelector } from "@/components/random-seed-selector";
 import { SystemMessageSelector } from "@/components/system-message-selector";
+import { APIKeyDialog } from "@/components/api-key-dialog";
+import { useStore } from "@/hooks/use-store";
 
 export default function Home() {
+  const setModel = useStore((state) => state.setModel);
+
   const [openSettings, setOpenSettings] = React.useState<boolean>(true);
   const [availableModels, setAvailableModels] = React.useState<Model[]>(
     models.filter((model) => model.type === "chat")
   );
-  const [selectedModel, setSelectedModel] = React.useState<Model>(models[0]);
+  const [isAPIKeyDialogOpen, setIsAPIKeyDialogOpen] =
+    React.useState<boolean>(false);
 
   const handleToggleSettings = () => {
     setOpenSettings((prev) => !prev);
-  };
-
-  const handleModelChange = (model: Model) => {
-    setSelectedModel(model);
   };
 
   const handleTabChange = (value: string) => {
     setAvailableModels(
       models.filter((model) => model.type === (value as ModelType))
     );
-    setSelectedModel(availableModels[0]);
   };
+
+  React.useEffect(() => {
+    setModel(availableModels[0].name);
+  }, [availableModels]);
 
   return (
     <>
@@ -60,7 +60,9 @@ export default function Home() {
             <Button variant="secondary" onClick={handleToggleSettings}>
               Toggle Settings
             </Button>
-            <PresetActions />
+            <PresetActions
+              onAPIKeyChangeClick={() => setIsAPIKeyDialogOpen(true)}
+            />
           </div>
         </div>
         <Separator />
@@ -89,17 +91,13 @@ export default function Home() {
                       </TabsTrigger>
                     </TabsList>
                   </div>
-                  <ModelSelector
-                    types={types}
-                    models={availableModels}
-                    onModelChange={handleModelChange}
-                  />
+                  <ModelSelector types={types} models={availableModels} />
                   {availableModels[0].type === "chat" && (
                     <>
-                      <SafeModeSelector defaultValue={true} />
-                      <TemperatureSelector defaultValue={[0.56]} />
-                      <MaxTokensSelector defaultValue={[256]} />
-                      <TopPSelector defaultValue={[0.9]} />
+                      <SafeModeSelector defaultValue={false} />
+                      <TemperatureSelector defaultValue={[0.7]} />
+                      <MaxTokensSelector defaultValue={undefined} />
+                      <TopPSelector defaultValue={[1]} />
                       <RandomSeedSelector defaultValue={undefined} />
                       <SystemMessageSelector defaultValue={""} />
                     </>
@@ -115,10 +113,6 @@ export default function Home() {
                     />
                     <div className="flex items-center space-x-2">
                       <Button>Submit</Button>
-                      <Button variant="secondary">
-                        <span className="sr-only">Show history</span>
-                        <CounterClockwiseClockIcon className="h-4 w-4" />
-                      </Button>
                     </div>
                   </div>
                 </TabsContent>
@@ -133,10 +127,6 @@ export default function Home() {
                     </div>
                     <div className="flex items-center space-x-2">
                       <Button>Submit</Button>
-                      <Button variant="secondary">
-                        <span className="sr-only">Show history</span>
-                        <CounterClockwiseClockIcon className="h-4 w-4" />
-                      </Button>
                     </div>
                   </div>
                 </TabsContent>
@@ -144,6 +134,10 @@ export default function Home() {
             </div>
           </div>
         </Tabs>
+        <APIKeyDialog
+          open={isAPIKeyDialogOpen}
+          onOpenChange={() => setIsAPIKeyDialogOpen(false)}
+        />
       </div>
     </>
   );

@@ -11,7 +11,7 @@ interface RandomSeedSelectorProps {
 }
 
 export function RandomSeedSelector({ defaultValue }: RandomSeedSelectorProps) {
-  const [value, setValue] = React.useState(defaultValue);
+  const [value, setValue] = React.useState<number | undefined>(defaultValue);
 
   return (
     <div className="grid gap-2 pt-2">

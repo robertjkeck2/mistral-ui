@@ -12,7 +12,8 @@ interface TopPSelectorProps {
 }
 
 export function TopPSelector({ defaultValue }: TopPSelectorProps) {
-  const [value, setValue] = React.useState(defaultValue);
+  const [value, setValue] =
+    React.useState<SliderProps["defaultValue"]>(defaultValue);
 
   return (
     <div className="grid gap-2 pt-2">

@@ -8,11 +8,13 @@ import { Label } from "@/ui/label";
 import { Slider } from "@/ui/slider";
 
 interface MaxTokensSelectorProps {
-  defaultValue: SliderProps["defaultValue"];
+  defaultValue: SliderProps["defaultValue"] | undefined;
 }
 
 export function MaxTokensSelector({ defaultValue }: MaxTokensSelectorProps) {
-  const [value, setValue] = React.useState(defaultValue);
+  const [value, setValue] = React.useState<
+    SliderProps["defaultValue"] | undefined
+  >(defaultValue);
 
   return (
     <div className="grid gap-2 pt-2">
@@ -22,7 +24,7 @@ export function MaxTokensSelector({ defaultValue }: MaxTokensSelectorProps) {
             <div className="flex items-center justify-between">
               <Label>Max Tokens</Label>
               <span className="w-12 rounded-md border border-transparent px-2 py-0.5 text-right text-sm text-muted-foreground hover:border-border">
-                {value}
+                {value !== undefined ? value : "-"}
               </span>
             </div>
             <Slider

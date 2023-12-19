@@ -11,7 +11,6 @@ import {
   Command,
   CommandEmpty,
   CommandGroup,
-  CommandInput,
   CommandItem,
   CommandList,
 } from "@/ui/command";
@@ -20,30 +19,19 @@ import { Label } from "@/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/ui/popover";
 
 import { Model, ModelType } from "../data/models";
+import { useStore } from "@/hooks/use-store";
 
 interface ModelSelectorProps extends PopoverProps {
   types: readonly ModelType[];
   models: Model[];
-  onModelChange: (model: Model) => void;
 }
 
-export function ModelSelector({
-  models,
-  types,
-  onModelChange,
-  ...props
-}: ModelSelectorProps) {
-  const [open, setOpen] = React.useState(false);
-  const [selectedModel, setSelectedModel] = React.useState<Model>(models[0]);
+export function ModelSelector({ models, types, ...props }: ModelSelectorProps) {
+  const selectedModel = useStore((state) => state.model);
+  const setModel = useStore((state) => state.setModel);
+
+  const [open, setOpen] = React.useState<boolean>(false);
   const [peekedModel, setPeekedModel] = React.useState<Model>(models[0]);
-
-  React.useEffect(() => {
-    setSelectedModel(models[0]);
-  }, [models]);
-
-  React.useEffect(() => {
-    onModelChange(selectedModel);
-  }, [onModelChange, selectedModel]);
 
   return (
     <div className="grid gap-2">
@@ -69,7 +57,7 @@ export function ModelSelector({
             aria-label="Select a model"
             className="w-full justify-between"
           >
-            {selectedModel ? selectedModel.name : "Select a model..."}
+            {selectedModel ? selectedModel : "Select a model..."}
             <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
@@ -90,7 +78,6 @@ export function ModelSelector({
             </HoverCardContent>
             <Command loop>
               <CommandList className="h-auto max-h-[400px]">
-                <CommandInput placeholder="Search Models..." />
                 <CommandEmpty>No models found.</CommandEmpty>
                 <HoverCardTrigger />
                 <CommandGroup key="models" heading="">
@@ -98,10 +85,10 @@ export function ModelSelector({
                     <ModelItem
                       key={model.id}
                       model={model}
-                      isSelected={selectedModel?.id === model.id}
+                      isSelected={selectedModel === model.name}
                       onPeek={(model) => setPeekedModel(model)}
                       onSelect={() => {
-                        setSelectedModel(model);
+                        setModel(model.name);
                         setOpen(false);
                       }}
                     />

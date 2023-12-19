@@ -11,7 +11,7 @@ interface SafeModeSelectorProps {
 }
 
 export function SafeModeSelector({ defaultValue }: SafeModeSelectorProps) {
-  const [value, setValue] = React.useState(defaultValue);
+  const [value, setValue] = React.useState<boolean>(defaultValue);
 
   return (
     <div className="grid gap-2 pt-2">

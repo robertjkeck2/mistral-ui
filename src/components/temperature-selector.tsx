@@ -14,7 +14,8 @@ interface TemperatureSelectorProps {
 export function TemperatureSelector({
   defaultValue,
 }: TemperatureSelectorProps) {
-  const [value, setValue] = React.useState(defaultValue);
+  const [value, setValue] =
+    React.useState<SliderProps["defaultValue"]>(defaultValue);
 
   return (
     <div className="grid gap-2 pt-2">
