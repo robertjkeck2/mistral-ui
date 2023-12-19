@@ -24,18 +24,28 @@ import { Model, ModelType } from "../data/models";
 interface ModelSelectorProps extends PopoverProps {
   types: readonly ModelType[];
   models: Model[];
+  onModelChange: (model: Model) => void;
 }
 
-export function ModelSelector({ models, types, ...props }: ModelSelectorProps) {
+export function ModelSelector({
+  models,
+  types,
+  onModelChange,
+  ...props
+}: ModelSelectorProps) {
   const [open, setOpen] = React.useState(false);
   const [selectedModel, setSelectedModel] = React.useState<Model>(models[0]);
   const [peekedModel, setPeekedModel] = React.useState<Model>(models[0]);
+
+  React.useEffect(() => {
+    onModelChange(selectedModel);
+  }, [onModelChange, selectedModel]);
 
   return (
     <div className="grid gap-2">
       <HoverCard openDelay={200}>
         <HoverCardTrigger asChild>
-          <Label htmlFor="model">Model</Label>
+          <Label>Model</Label>
         </HoverCardTrigger>
         <HoverCardContent
           align="start"

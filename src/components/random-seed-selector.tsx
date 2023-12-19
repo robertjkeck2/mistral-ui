@@ -1,17 +1,16 @@
 "use client";
 
 import * as React from "react";
-import { SliderProps } from "@radix-ui/react-slider";
 
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/ui/hover-card";
 import { Label } from "@/ui/label";
-import { Switch } from "@/ui/switch";
+import { Input } from "./ui/input";
 
-interface SafeModeSelectorProps {
-  defaultValue: boolean;
+interface RandomSeedSelectorProps {
+  defaultValue: number | undefined;
 }
 
-export function SafeModeSelector({ defaultValue }: SafeModeSelectorProps) {
+export function RandomSeedSelector({ defaultValue }: RandomSeedSelectorProps) {
   const [value, setValue] = React.useState(defaultValue);
 
   return (
@@ -20,12 +19,20 @@ export function SafeModeSelector({ defaultValue }: SafeModeSelectorProps) {
         <HoverCardTrigger asChild>
           <div className="grid gap-4">
             <div className="flex items-center justify-between">
-              <Label htmlFor="temperature">Safe Mode</Label>
+              <Label>Random Seed</Label>
               <span className="w-12 rounded-md border border-transparent px-2 py-0.5 text-right text-sm text-muted-foreground hover:border-border">
-                {value}
+                {value !== undefined ? value : "-"}
               </span>
             </div>
-            <Switch name="show" id="show" defaultChecked={defaultValue} />
+            <Input
+              type="tel"
+              min={0}
+              max={99999}
+              maxLength={5}
+              placeholder="Seed"
+              value={value !== undefined ? value : ""}
+              onChange={(e) => setValue(Number(e.target.value))}
+            />
           </div>
         </HoverCardTrigger>
         <HoverCardContent
