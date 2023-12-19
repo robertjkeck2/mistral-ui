@@ -10,7 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/ui/tabs";
 import { Textarea } from "@/ui/textarea";
 
 import { CodeViewer } from "../components/code-viewer";
-import { MaxLengthSelector } from "../components/maxlength-selector";
+import { MaxTokensSelector } from "../components/maxtokens-selector";
 import { ModelSelector } from "../components/model-selector";
 import { PresetActions } from "../components/preset-actions";
 import { PresetSave } from "../components/preset-save";
@@ -20,6 +20,7 @@ import { TemperatureSelector } from "../components/temperature-selector";
 import { TopPSelector } from "../components/top-p-selector";
 import { models, types } from "../data/models";
 import { presets } from "../data/presets";
+import { SafeModeSelector } from "@/components/safe-mode-selector";
 
 export const metadata: Metadata = {
   title: "Mistral UI",
@@ -29,25 +30,15 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      <div className="md:hidden">
-        <Image
-          src="/examples/playground-light.png"
-          width={1280}
-          height={916}
-          alt="Playground"
-          className="block dark:hidden"
-        />
-        <Image
-          src="/examples/playground-dark.png"
-          width={1280}
-          height={916}
-          alt="Playground"
-          className="hidden dark:block"
-        />
-      </div>
       <div className="hidden h-full flex-col md:flex">
         <div className="container flex flex-col items-start justify-between space-y-2 py-4 sm:flex-row sm:items-center sm:space-y-0 md:h-16">
-          <h2 className="text-lg font-semibold">Playground</h2>
+          <Image
+            src="/logo-dark.svg"
+            width={90}
+            height={60}
+            alt="Mistral"
+            className="block"
+          />
           <div className="ml-auto flex w-full space-x-2 sm:justify-end">
             <PresetSelector presets={presets} />
             <PresetSave />
@@ -241,8 +232,9 @@ export default function Home() {
                   </TabsList>
                 </div>
                 <ModelSelector types={types} models={models} />
+                <SafeModeSelector defaultValue={true} />
                 <TemperatureSelector defaultValue={[0.56]} />
-                <MaxLengthSelector defaultValue={[256]} />
+                <MaxTokensSelector defaultValue={[256]} />
                 <TopPSelector defaultValue={[0.9]} />
               </div>
               <div className="md:order-1">

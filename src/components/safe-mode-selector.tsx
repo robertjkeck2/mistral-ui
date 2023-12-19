@@ -1,17 +1,16 @@
 "use client";
 
 import * as React from "react";
-import { SliderProps } from "@radix-ui/react-slider";
 
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/ui/hover-card";
 import { Label } from "@/ui/label";
-import { Slider } from "@/ui/slider";
+import { Switch } from "@/ui/switch";
 
-interface MaxLengthSelectorProps {
-  defaultValue: SliderProps["defaultValue"];
+interface SafeModeSelectorProps {
+  defaultValue: boolean;
 }
 
-export function MaxLengthSelector({ defaultValue }: MaxLengthSelectorProps) {
+export function SafeModeSelector({ defaultValue }: SafeModeSelectorProps) {
   const [value, setValue] = React.useState(defaultValue);
 
   return (
@@ -20,19 +19,15 @@ export function MaxLengthSelector({ defaultValue }: MaxLengthSelectorProps) {
         <HoverCardTrigger asChild>
           <div className="grid gap-4">
             <div className="flex items-center justify-between">
-              <Label htmlFor="maxlength">Maximum Length</Label>
+              <Label htmlFor="safemode">Safe Mode</Label>
               <span className="w-12 rounded-md border border-transparent px-2 py-0.5 text-right text-sm text-muted-foreground hover:border-border">
                 {value}
               </span>
             </div>
-            <Slider
-              id="maxlength"
-              max={4000}
-              defaultValue={value}
-              step={10}
-              onValueChange={setValue}
-              className="[&_[role=slider]]:h-4 [&_[role=slider]]:w-4"
-              aria-label="Maximum Length"
+            <Switch
+              name="safemode"
+              id="safemode"
+              defaultChecked={defaultValue}
             />
           </div>
         </HoverCardTrigger>
@@ -41,9 +36,7 @@ export function MaxLengthSelector({ defaultValue }: MaxLengthSelectorProps) {
           className="w-[260px] text-sm"
           side="left"
         >
-          The maximum number of tokens to generate. Requests can use up to 2,048
-          or 4,000 tokens, shared between prompt and completion. The exact limit
-          varies by model.
+          Whether to inject a safety prompt before all conversations.
         </HoverCardContent>
       </HoverCard>
     </div>

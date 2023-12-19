@@ -5,13 +5,13 @@ import { SliderProps } from "@radix-ui/react-slider";
 
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/ui/hover-card";
 import { Label } from "@/ui/label";
-import { Slider } from "@/ui/slider";
+import { Switch } from "@/ui/switch";
 
-interface TopPSelectorProps {
-  defaultValue: SliderProps["defaultValue"];
+interface SafeModeSelectorProps {
+  defaultValue: boolean;
 }
 
-export function TopPSelector({ defaultValue }: TopPSelectorProps) {
+export function SafeModeSelector({ defaultValue }: SafeModeSelectorProps) {
   const [value, setValue] = React.useState(defaultValue);
 
   return (
@@ -20,20 +20,12 @@ export function TopPSelector({ defaultValue }: TopPSelectorProps) {
         <HoverCardTrigger asChild>
           <div className="grid gap-4">
             <div className="flex items-center justify-between">
-              <Label htmlFor="top-p">Top P</Label>
+              <Label htmlFor="temperature">Safe Mode</Label>
               <span className="w-12 rounded-md border border-transparent px-2 py-0.5 text-right text-sm text-muted-foreground hover:border-border">
                 {value}
               </span>
             </div>
-            <Slider
-              id="top-p"
-              max={1}
-              defaultValue={value}
-              step={0.1}
-              onValueChange={setValue}
-              className="[&_[role=slider]]:h-4 [&_[role=slider]]:w-4"
-              aria-label="Top P"
-            />
+            <Switch name="show" id="show" defaultChecked={defaultValue} />
           </div>
         </HoverCardTrigger>
         <HoverCardContent
@@ -41,10 +33,8 @@ export function TopPSelector({ defaultValue }: TopPSelectorProps) {
           className="w-[260px] text-sm"
           side="left"
         >
-          Nucleus sampling, where the model considers the results of the tokens
-          with top_p probability mass. So 0.1 means only the tokens comprising
-          the top 10% probability mass are considered. We generally recommend
-          altering this or temperature but not both.
+          The seed to use for random sampling. If set, different calls will
+          generate deterministic results.
         </HoverCardContent>
       </HoverCard>
     </div>

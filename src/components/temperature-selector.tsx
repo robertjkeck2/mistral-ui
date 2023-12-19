@@ -43,9 +43,10 @@ export function TemperatureSelector({
           className="w-[260px] text-sm"
           side="left"
         >
-          Controls randomness: lowering results in less random completions. As
-          the temperature approaches zero, the model will become deterministic
-          and repetitive.
+          What sampling temperature to use, between 0.0 and 1.0. Higher values
+          like 0.8 will make the output more random, while lower values like 0.2
+          will make it more focused and deterministic. We generally recommend
+          altering this or top_p but not both.
         </HoverCardContent>
       </HoverCard>
     </div>

@@ -7,11 +7,11 @@ import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/ui/hover-card";
 import { Label } from "@/ui/label";
 import { Slider } from "@/ui/slider";
 
-interface TopPSelectorProps {
+interface MaxTokensSelectorProps {
   defaultValue: SliderProps["defaultValue"];
 }
 
-export function TopPSelector({ defaultValue }: TopPSelectorProps) {
+export function MaxTokensSelector({ defaultValue }: MaxTokensSelectorProps) {
   const [value, setValue] = React.useState(defaultValue);
 
   return (
@@ -20,19 +20,19 @@ export function TopPSelector({ defaultValue }: TopPSelectorProps) {
         <HoverCardTrigger asChild>
           <div className="grid gap-4">
             <div className="flex items-center justify-between">
-              <Label htmlFor="top-p">Top P</Label>
+              <Label htmlFor="maxtokens">Max Tokens</Label>
               <span className="w-12 rounded-md border border-transparent px-2 py-0.5 text-right text-sm text-muted-foreground hover:border-border">
                 {value}
               </span>
             </div>
             <Slider
-              id="top-p"
-              max={1}
+              id="maxtokens"
+              max={4000}
               defaultValue={value}
-              step={0.1}
+              step={10}
               onValueChange={setValue}
               className="[&_[role=slider]]:h-4 [&_[role=slider]]:w-4"
-              aria-label="Top P"
+              aria-label="Max Tokens"
             />
           </div>
         </HoverCardTrigger>
@@ -41,10 +41,9 @@ export function TopPSelector({ defaultValue }: TopPSelectorProps) {
           className="w-[260px] text-sm"
           side="left"
         >
-          Nucleus sampling, where the model considers the results of the tokens
-          with top_p probability mass. So 0.1 means only the tokens comprising
-          the top 10% probability mass are considered. We generally recommend
-          altering this or temperature but not both.
+          The maximum number of tokens to generate in the completion. The token
+          count of your prompt plus max_tokens cannot exceed the model's context
+          length.
         </HoverCardContent>
       </HoverCard>
     </div>
