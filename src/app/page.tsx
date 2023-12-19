@@ -19,8 +19,8 @@ import { RandomSeedSelector } from "@/components/random-seed-selector";
 import { SystemMessageSelector } from "@/components/system-message-selector";
 import { ApiKeyDialog } from "@/components/api-key-dialog";
 import { useStore } from "@/hooks/use-store";
-import { ModelType } from "@/types/Models";
-import { Chat } from "@/components/chat";
+import { ModelType } from "@/types/Model";
+import { Chat } from "@/components/chat/chat";
 import { Embedding } from "@/components/embedding";
 
 export default function Home() {

@@ -19,7 +19,7 @@ import { Label } from "@/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/ui/popover";
 
 import { useStore } from "@/hooks/use-store";
-import { Model } from "@/types/Models";
+import { Model } from "@/types/Model";
 
 interface ModelSelectorProps extends PopoverProps {
   models: Model[];

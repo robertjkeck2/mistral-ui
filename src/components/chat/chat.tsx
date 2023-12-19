@@ -2,9 +2,11 @@
 
 import React from "react";
 
-import { Button } from "./ui/button";
-import { Textarea } from "./ui/textarea";
+import { PaperPlaneIcon } from "@radix-ui/react-icons";
+import { Button } from "../ui/button";
 import { useStore } from "@/hooks/use-store";
+import { Input } from "../ui/input";
+import { ChatMessages } from "./chat-messages";
 
 export function Chat() {
   const chatText = useStore((state) => state.chatText);
@@ -21,14 +23,15 @@ export function Chat() {
 
   return (
     <div className="flex h-full flex-col space-y-4">
-      <Textarea
-        placeholder="Write a tagline for an ice cream shop"
-        className="min-h-[400px] flex-1 p-4 md:min-h-[700px] lg:min-h-[700px]"
-        onChange={(e) => setChatText(e.target.value)}
-      />
-      <div className="flex items-center space-x-2">
+      <ChatMessages />
+      <div className="flex w-full items-center space-x-2">
+        <Input
+          type="text"
+          placeholder="Type a message..."
+          onChange={(e) => setChatText(e.target.value)}
+        />
         <Button onClick={sendMessage} disabled={isLoading || chatText == ""}>
-          Submit
+          <PaperPlaneIcon className="h-4 w-4" />
         </Button>
       </div>
     </div>
