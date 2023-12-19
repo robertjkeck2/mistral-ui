@@ -21,10 +21,13 @@ import { TopPSelector } from "../components/top-p-selector";
 import { Model, ModelType, models, types } from "../data/models";
 import { SafeModeSelector } from "@/components/safe-mode-selector";
 import { RandomSeedSelector } from "@/components/random-seed-selector";
+import { SystemMessageSelector } from "@/components/system-message-selector";
 
 export default function Home() {
   const [openSettings, setOpenSettings] = React.useState<boolean>(true);
-  const [availableModels, setAvailableModels] = React.useState<Model[]>(models);
+  const [availableModels, setAvailableModels] = React.useState<Model[]>(
+    models.filter((model) => model.type === "chat")
+  );
   const [selectedModel, setSelectedModel] = React.useState<Model>(models[0]);
 
   const handleToggleSettings = () => {
@@ -35,12 +38,11 @@ export default function Home() {
     setSelectedModel(model);
   };
 
-  const handleTabChange = (e: any) => {
-    console.log(e.target.value);
+  const handleTabChange = (value: string) => {
     setAvailableModels(
-      models.filter((model) => model.type === (e.target.value as ModelType))
+      models.filter((model) => model.type === (value as ModelType))
     );
-    console.log(availableModels);
+    setSelectedModel(availableModels[0]);
   };
 
   return (
@@ -62,7 +64,11 @@ export default function Home() {
           </div>
         </div>
         <Separator />
-        <Tabs defaultValue="chat" className="flex-1" onChange={handleTabChange}>
+        <Tabs
+          defaultValue="chat"
+          className="flex-1"
+          onValueChange={handleTabChange}
+        >
           <div className="container h-full py-6">
             <div
               className={`grid h-full items-stretch gap-6 ${
@@ -88,11 +94,16 @@ export default function Home() {
                     models={availableModels}
                     onModelChange={handleModelChange}
                   />
-                  <SafeModeSelector defaultValue={true} />
-                  <TemperatureSelector defaultValue={[0.56]} />
-                  <MaxTokensSelector defaultValue={[256]} />
-                  <TopPSelector defaultValue={[0.9]} />
-                  <RandomSeedSelector defaultValue={undefined} />
+                  {availableModels[0].type === "chat" && (
+                    <>
+                      <SafeModeSelector defaultValue={true} />
+                      <TemperatureSelector defaultValue={[0.56]} />
+                      <MaxTokensSelector defaultValue={[256]} />
+                      <TopPSelector defaultValue={[0.9]} />
+                      <RandomSeedSelector defaultValue={undefined} />
+                      <SystemMessageSelector defaultValue={""} />
+                    </>
+                  )}
                 </div>
               )}
               <div className="md:order-1">

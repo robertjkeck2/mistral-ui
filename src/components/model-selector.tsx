@@ -38,6 +38,10 @@ export function ModelSelector({
   const [peekedModel, setPeekedModel] = React.useState<Model>(models[0]);
 
   React.useEffect(() => {
+    setSelectedModel(models[0]);
+  }, [models]);
+
+  React.useEffect(() => {
     onModelChange(selectedModel);
   }, [onModelChange, selectedModel]);
 
@@ -85,28 +89,24 @@ export function ModelSelector({
               </div>
             </HoverCardContent>
             <Command loop>
-              <CommandList className="h-[var(--cmdk-list-height)] max-h-[400px]">
+              <CommandList className="h-auto max-h-[400px]">
                 <CommandInput placeholder="Search Models..." />
                 <CommandEmpty>No models found.</CommandEmpty>
                 <HoverCardTrigger />
-                {types.map((type) => (
-                  <CommandGroup key={type} heading={type}>
-                    {models
-                      .filter((model) => model.type === type)
-                      .map((model) => (
-                        <ModelItem
-                          key={model.id}
-                          model={model}
-                          isSelected={selectedModel?.id === model.id}
-                          onPeek={(model) => setPeekedModel(model)}
-                          onSelect={() => {
-                            setSelectedModel(model);
-                            setOpen(false);
-                          }}
-                        />
-                      ))}
-                  </CommandGroup>
-                ))}
+                <CommandGroup key="models" heading="">
+                  {models.map((model) => (
+                    <ModelItem
+                      key={model.id}
+                      model={model}
+                      isSelected={selectedModel?.id === model.id}
+                      onPeek={(model) => setPeekedModel(model)}
+                      onSelect={() => {
+                        setSelectedModel(model);
+                        setOpen(false);
+                      }}
+                    />
+                  ))}
+                </CommandGroup>
               </CommandList>
             </Command>
           </HoverCard>
