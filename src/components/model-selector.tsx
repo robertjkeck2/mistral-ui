@@ -118,6 +118,7 @@ function ModelItem({ model, isSelected, onSelect, onPeek }: ModelItemProps) {
         const { ariaSelected } = mutation.target as HTMLDivElement;
         if (ariaSelected === "true") {
           onPeek(model);
+          break;
         }
       }
     }

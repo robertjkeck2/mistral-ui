@@ -12,6 +12,8 @@ type Store = {
   randomSeed: number;
   systemMessage: string;
   availableModels: Model<ModelType>[];
+  embeddingText: string;
+  chatText: string;
   setApiKey: (apiKey: string) => void;
   setModel: (model: string) => void;
   setSafeMode: (safeMode: boolean) => void;
@@ -21,6 +23,8 @@ type Store = {
   setRandomSeed: (randomSeed: number) => void;
   setSystemMessage: (systemMessage: string) => void;
   setAvailableModels: (models: Model<ModelType>[], type: ModelType) => void;
+  setEmbeddingText: (embeddingText: string) => void;
+  setChatText: (chatText: string) => void;
 };
 
 export const useStore = create<Store>((set) => ({
@@ -33,6 +37,8 @@ export const useStore = create<Store>((set) => ({
   randomSeed: 0,
   systemMessage: "",
   availableModels: models.filter((model) => model.type === "chat"),
+  embeddingText: "",
+  chatText: "",
   setApiKey: (apiKey: string) => set({ apiKey }),
   setModel: (model: string) => set({ model }),
   setSafeMode: (safeMode: boolean) => set({ safeMode }),
@@ -46,4 +52,6 @@ export const useStore = create<Store>((set) => ({
       availableModels: models.filter((model) => model.type === type),
       model: models.filter((model) => model.type === type)[0].name,
     }),
+  setEmbeddingText: (embeddingText: string) => set({ embeddingText }),
+  setChatText: (chatText: string) => set({ chatText }),
 }));
