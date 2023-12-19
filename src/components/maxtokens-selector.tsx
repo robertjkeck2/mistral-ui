@@ -1,20 +1,15 @@
 "use client";
 
 import * as React from "react";
-import { SliderProps } from "@radix-ui/react-slider";
 
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/ui/hover-card";
 import { Label } from "@/ui/label";
 import { Slider } from "@/ui/slider";
+import { useStore } from "@/hooks/use-store";
 
-interface MaxTokensSelectorProps {
-  defaultValue: SliderProps["defaultValue"] | undefined;
-}
-
-export function MaxTokensSelector({ defaultValue }: MaxTokensSelectorProps) {
-  const [value, setValue] = React.useState<
-    SliderProps["defaultValue"] | undefined
-  >(defaultValue);
+export function MaxTokensSelector() {
+  const maxTokens = useStore((state) => state.maxTokens);
+  const setMaxTokens = useStore((state) => state.setMaxTokens);
 
   return (
     <div className="grid gap-2 pt-2">
@@ -24,15 +19,15 @@ export function MaxTokensSelector({ defaultValue }: MaxTokensSelectorProps) {
             <div className="flex items-center justify-between">
               <Label>Max Tokens</Label>
               <span className="w-12 rounded-md border border-transparent px-2 py-0.5 text-right text-sm text-muted-foreground hover:border-border">
-                {value !== undefined ? value : "-"}
+                {maxTokens !== 0 ? maxTokens : "-"}
               </span>
             </div>
             <Slider
               id="maxtokens"
               max={4000}
-              defaultValue={value}
+              defaultValue={[maxTokens]}
               step={10}
-              onValueChange={setValue}
+              onValueChange={(value: number[]) => setMaxTokens(value[0])}
               className="[&_[role=slider]]:h-4 [&_[role=slider]]:w-4"
               aria-label="Max Tokens"
             />

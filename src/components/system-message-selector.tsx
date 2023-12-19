@@ -5,15 +5,11 @@ import * as React from "react";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/ui/hover-card";
 import { Label } from "@/ui/label";
 import { Textarea } from "./ui/textarea";
+import { useStore } from "@/hooks/use-store";
 
-interface SystemMessageSelectorProps {
-  defaultValue: string;
-}
-
-export function SystemMessageSelector({
-  defaultValue,
-}: SystemMessageSelectorProps) {
-  const [value, setValue] = React.useState<string>(defaultValue);
+export function SystemMessageSelector() {
+  const systemMessage = useStore((state) => state.systemMessage);
+  const setSystemMessage = useStore((state) => state.setSystemMessage);
 
   return (
     <div className="grid gap-2 pt-2">
@@ -22,15 +18,12 @@ export function SystemMessageSelector({
           <div className="grid gap-4">
             <div className="flex items-center justify-between">
               <Label>System Message</Label>
-              <span className="w-12 rounded-md border border-transparent px-2 py-0.5 text-right text-sm text-muted-foreground hover:border-border">
-                {value !== undefined ? value : "-"}
-              </span>
             </div>
             <Textarea
               className="min-h-[125px] max-h-[125px]"
               placeholder="Message"
-              value={value}
-              onChange={(e) => setValue(e.target.value)}
+              value={systemMessage}
+              onChange={(e) => setSystemMessage(e.target.value)}
             />
           </div>
         </HoverCardTrigger>

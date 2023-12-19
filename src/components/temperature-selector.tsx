@@ -1,21 +1,15 @@
 "use client";
 
 import * as React from "react";
-import { SliderProps } from "@radix-ui/react-slider";
 
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/ui/hover-card";
 import { Label } from "@/ui/label";
 import { Slider } from "@/ui/slider";
+import { useStore } from "@/hooks/use-store";
 
-interface TemperatureSelectorProps {
-  defaultValue: SliderProps["defaultValue"];
-}
-
-export function TemperatureSelector({
-  defaultValue,
-}: TemperatureSelectorProps) {
-  const [value, setValue] =
-    React.useState<SliderProps["defaultValue"]>(defaultValue);
+export function TemperatureSelector() {
+  const temperature = useStore((state) => state.temperature);
+  const setTemperature = useStore((state) => state.setTemperature);
 
   return (
     <div className="grid gap-2 pt-2">
@@ -25,15 +19,15 @@ export function TemperatureSelector({
             <div className="flex items-center justify-between">
               <Label>Temperature</Label>
               <span className="w-12 rounded-md border border-transparent px-2 py-0.5 text-right text-sm text-muted-foreground hover:border-border">
-                {value}
+                {temperature}
               </span>
             </div>
             <Slider
               id="temperature"
               max={1}
-              defaultValue={value}
+              defaultValue={[temperature]}
               step={0.1}
-              onValueChange={setValue}
+              onValueChange={(value: number[]) => setTemperature(value[0])}
               className="[&_[role=slider]]:h-4 [&_[role=slider]]:w-4"
               aria-label="Temperature"
             />

@@ -1,19 +1,15 @@
 "use client";
 
 import * as React from "react";
-import { SliderProps } from "@radix-ui/react-slider";
 
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/ui/hover-card";
 import { Label } from "@/ui/label";
 import { Slider } from "@/ui/slider";
+import { useStore } from "@/hooks/use-store";
 
-interface TopPSelectorProps {
-  defaultValue: SliderProps["defaultValue"];
-}
-
-export function TopPSelector({ defaultValue }: TopPSelectorProps) {
-  const [value, setValue] =
-    React.useState<SliderProps["defaultValue"]>(defaultValue);
+export function TopPSelector() {
+  const topP = useStore((state) => state.topP);
+  const setTopP = useStore((state) => state.setTopP);
 
   return (
     <div className="grid gap-2 pt-2">
@@ -23,15 +19,15 @@ export function TopPSelector({ defaultValue }: TopPSelectorProps) {
             <div className="flex items-center justify-between">
               <Label>Top P</Label>
               <span className="w-12 rounded-md border border-transparent px-2 py-0.5 text-right text-sm text-muted-foreground hover:border-border">
-                {value}
+                {topP}
               </span>
             </div>
             <Slider
               id="top-p"
               max={1}
-              defaultValue={value}
+              defaultValue={[topP]}
               step={0.1}
-              onValueChange={setValue}
+              onValueChange={(value: number[]) => setTopP(value[0])}
               className="[&_[role=slider]]:h-4 [&_[role=slider]]:w-4"
               aria-label="Top P"
             />

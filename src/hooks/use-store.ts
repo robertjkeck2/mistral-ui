@@ -1,3 +1,5 @@
+import { models } from "@/data/models";
+import { Model, ModelType } from "@/types/Models";
 import { create } from "zustand";
 
 type Store = {
@@ -9,6 +11,7 @@ type Store = {
   topP: number;
   randomSeed: number;
   systemMessage: string;
+  availableModels: Model<ModelType>[];
   setApiKey: (apiKey: string) => void;
   setModel: (model: string) => void;
   setSafeMode: (safeMode: boolean) => void;
@@ -17,6 +20,7 @@ type Store = {
   setTopP: (topP: number) => void;
   setRandomSeed: (randomSeed: number) => void;
   setSystemMessage: (systemMessage: string) => void;
+  setAvailableModels: (models: Model<ModelType>[], type: ModelType) => void;
 };
 
 export const useStore = create<Store>((set) => ({
@@ -28,6 +32,7 @@ export const useStore = create<Store>((set) => ({
   topP: 1,
   randomSeed: 0,
   systemMessage: "",
+  availableModels: models,
   setApiKey: (apiKey: string) => set({ apiKey }),
   setModel: (model: string) => set({ model }),
   setSafeMode: (safeMode: boolean) => set({ safeMode }),
@@ -36,4 +41,9 @@ export const useStore = create<Store>((set) => ({
   setTopP: (topP: number) => set({ topP }),
   setRandomSeed: (randomSeed: number) => set({ randomSeed }),
   setSystemMessage: (systemMessage: string) => set({ systemMessage }),
+  setAvailableModels: (models: Model<ModelType>[], type: ModelType) =>
+    set({
+      availableModels: models.filter((model) => model.type === type),
+      model: models.filter((model) => model.type === type)[0].name,
+    }),
 }));

@@ -18,15 +18,14 @@ import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/ui/hover-card";
 import { Label } from "@/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/ui/popover";
 
-import { Model, ModelType } from "../data/models";
 import { useStore } from "@/hooks/use-store";
+import { Model } from "@/types/Models";
 
 interface ModelSelectorProps extends PopoverProps {
-  types: readonly ModelType[];
   models: Model[];
 }
 
-export function ModelSelector({ models, types, ...props }: ModelSelectorProps) {
+export function ModelSelector({ models, ...props }: ModelSelectorProps) {
   const selectedModel = useStore((state) => state.model);
   const setModel = useStore((state) => state.setModel);
 

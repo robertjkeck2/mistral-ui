@@ -14,20 +14,19 @@ import { ModelSelector } from "../components/model-selector";
 import { PresetActions } from "../components/preset-actions";
 import { TemperatureSelector } from "../components/temperature-selector";
 import { TopPSelector } from "../components/top-p-selector";
-import { Model, ModelType, models, types } from "../data/models";
+import { models } from "../data/models";
 import { SafeModeSelector } from "@/components/safe-mode-selector";
 import { RandomSeedSelector } from "@/components/random-seed-selector";
 import { SystemMessageSelector } from "@/components/system-message-selector";
 import { APIKeyDialog } from "@/components/api-key-dialog";
 import { useStore } from "@/hooks/use-store";
+import { ModelType } from "@/types/Models";
 
 export default function Home() {
-  const setModel = useStore((state) => state.setModel);
+  const availableModels = useStore((state) => state.availableModels);
+  const setAvailableModels = useStore((state) => state.setAvailableModels);
 
   const [openSettings, setOpenSettings] = React.useState<boolean>(true);
-  const [availableModels, setAvailableModels] = React.useState<Model[]>(
-    models.filter((model) => model.type === "chat")
-  );
   const [isAPIKeyDialogOpen, setIsAPIKeyDialogOpen] =
     React.useState<boolean>(false);
 
@@ -36,14 +35,8 @@ export default function Home() {
   };
 
   const handleTabChange = (value: string) => {
-    setAvailableModels(
-      models.filter((model) => model.type === (value as ModelType))
-    );
+    setAvailableModels(models, value as ModelType);
   };
-
-  React.useEffect(() => {
-    setModel(availableModels[0].name);
-  }, [availableModels]);
 
   return (
     <>
@@ -91,15 +84,15 @@ export default function Home() {
                       </TabsTrigger>
                     </TabsList>
                   </div>
-                  <ModelSelector types={types} models={availableModels} />
+                  <ModelSelector models={availableModels} />
                   {availableModels[0].type === "chat" && (
                     <>
-                      <SafeModeSelector defaultValue={false} />
-                      <TemperatureSelector defaultValue={[0.7]} />
-                      <MaxTokensSelector defaultValue={undefined} />
-                      <TopPSelector defaultValue={[1]} />
-                      <RandomSeedSelector defaultValue={undefined} />
-                      <SystemMessageSelector defaultValue={""} />
+                      <SafeModeSelector />
+                      <TemperatureSelector />
+                      <MaxTokensSelector />
+                      <TopPSelector />
+                      <RandomSeedSelector />
+                      <SystemMessageSelector />
                     </>
                   )}
                 </div>
