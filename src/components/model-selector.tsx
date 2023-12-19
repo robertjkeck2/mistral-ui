@@ -42,8 +42,8 @@ export function ModelSelector({ models, types, ...props }: ModelSelectorProps) {
           className="w-[260px] text-sm"
           side="left"
         >
-          The model which will generate the completion. Some models are suitable
-          for natural language tasks, others specialize in code. Learn more.
+          The model which will generate the completion. Selecting an embedding
+          model will change the output to a vector.
         </HoverCardContent>
       </HoverCard>
       <Popover open={open} onOpenChange={setOpen} {...props}>
@@ -72,22 +72,12 @@ export function ModelSelector({ models, types, ...props }: ModelSelectorProps) {
                 <div className="text-sm text-muted-foreground">
                   {peekedModel.description}
                 </div>
-                {peekedModel.strengths ? (
-                  <div className="mt-4 grid gap-2">
-                    <h5 className="text-sm font-medium leading-none">
-                      Strengths
-                    </h5>
-                    <ul className="text-sm text-muted-foreground">
-                      {peekedModel.strengths}
-                    </ul>
-                  </div>
-                ) : null}
               </div>
             </HoverCardContent>
             <Command loop>
               <CommandList className="h-[var(--cmdk-list-height)] max-h-[400px]">
                 <CommandInput placeholder="Search Models..." />
-                <CommandEmpty>No Models found.</CommandEmpty>
+                <CommandEmpty>No models found.</CommandEmpty>
                 <HoverCardTrigger />
                 {types.map((type) => (
                   <CommandGroup key={type} heading={type}>
@@ -129,7 +119,8 @@ function ModelItem({ model, isSelected, onSelect, onPeek }: ModelItemProps) {
   useMutationObserver(ref, (mutations) => {
     for (const mutation of mutations) {
       if (mutation.type === "attributes") {
-        if (mutation.attributeName === "aria-selected") {
+        const { ariaSelected } = mutation.target as HTMLDivElement;
+        if (ariaSelected === "true") {
           onPeek(model);
         }
       }
