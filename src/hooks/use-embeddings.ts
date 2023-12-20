@@ -14,7 +14,6 @@ export const useEmbeddings = (apiKey: string, model: string) => {
 
   const handleSubmit = React.useCallback(async () => {
     setIsLoading(true);
-    console.log("input", input);
     const response = await fetch("/api/embeddings", {
       method: "POST",
       headers: {

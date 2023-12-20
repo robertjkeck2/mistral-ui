@@ -30,7 +30,7 @@ export default function Home() {
 
   const [allowApiKeyDialogClose, setAllowApiKeyDialogClose] =
     React.useState<boolean>(false);
-  const [openSettings, setOpenSettings] = React.useState<boolean>(true);
+  const [openSettings, setOpenSettings] = React.useState<boolean>(false);
   const [isApiKeyDialogOpen, setIsApiKeyDialogOpen] =
     React.useState<boolean>(false);
 

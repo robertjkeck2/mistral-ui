@@ -23,7 +23,11 @@ export function Embedding() {
           value={input}
           onChange={handleInputChange}
         />
-        <div className="text-sm rounded-md border bg-muted min-h-[300px] max-h-[700px] lg:min-h-[700px] xl:min-h-[700px] overflow-auto">
+        <div
+          className={`text-sm ${
+            isLoading && "blur-md"
+          } rounded-md border bg-muted min-h-[300px] max-h-[700px] lg:min-h-[700px] xl:min-h-[700px] overflow-auto`}
+        >
           <div className="p-4">
             <pre>{JSON.stringify(embeddings, null, 2)}</pre>
           </div>
