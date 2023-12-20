@@ -63,11 +63,11 @@ export default function Home() {
               className="block"
             />
           </div>
-          <div className="absolute top-3.5 left-12">
+          <div className="absolute top-1.5 left-12">
             <p className="text-xs font-mono font-semibold">PLAY</p>
             <p className="text-xs font-mono font-semibold">GROUND_</p>
           </div>
-          <div className="absolute top-1 right-3 top-3">
+          <div className="absolute right-3 top-1">
             <div className="flex space-x-2">
               <Button
                 className="hidden sm:flex"
