@@ -1,16 +1,17 @@
 "use client";
 
 import React from "react";
-import { useStore } from "@/hooks/use-store";
 import { PersonIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
 
-export function ChatMessages() {
-  const chatMessages = useStore((state) => state.chatMessages);
+interface ChatMessagesProps {
+  messages?: any[];
+}
 
+export function ChatMessages({ messages }: ChatMessagesProps) {
   React.useEffect(() => {
     scrollToEnd();
-  }, [chatMessages]);
+  }, [messages]);
 
   const scrollToEnd = () => {
     const chat = document.getElementById("chatMessages");
@@ -23,8 +24,8 @@ export function ChatMessages() {
         id="chatMessages"
         className="flex flex-col w-full overflow-y-auto px-4"
       >
-        {!chatMessages ||
-          (chatMessages.length == 0 && (
+        {!messages ||
+          (messages.length == 0 && (
             <div className="flex flex-col w-full h-full space-y-2 justify-center items-center">
               <Image
                 src="/mistral-m.png"
@@ -38,8 +39,8 @@ export function ChatMessages() {
               </span>
             </div>
           ))}
-        {chatMessages
-          .filter((message) => message.role != "system")
+        {messages
+          ?.filter((message) => message.role != "system")
           .map((message, index) => (
             <div key={index} className="flex flex-col space-y-2">
               <div className="flex items-center space-x-2">

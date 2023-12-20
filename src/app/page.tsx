@@ -8,20 +8,20 @@ import { Button } from "@/ui/button";
 import { Separator } from "@/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/ui/tabs";
 
-import { MaxTokensSelector } from "../components/maxtokens-selector";
-import { ModelSelector } from "../components/model-selector";
+import { MaxTokensSelector } from "../components/selectors/maxtokens-selector";
+import { ModelSelector } from "../components/selectors/model-selector";
 import { PresetActions } from "../components/preset-actions";
-import { TemperatureSelector } from "../components/temperature-selector";
-import { TopPSelector } from "../components/top-p-selector";
+import { TemperatureSelector } from "../components/selectors/temperature-selector";
+import { TopPSelector } from "../components/selectors/top-p-selector";
 import { models } from "../data/models";
-import { SafeModeSelector } from "@/components/safe-mode-selector";
-import { RandomSeedSelector } from "@/components/random-seed-selector";
-import { SystemMessageSelector } from "@/components/system-message-selector";
-import { ApiKeyDialog } from "@/components/api-key-dialog";
+import { SafeModeSelector } from "@/components/selectors/safe-mode-selector";
+import { RandomSeedSelector } from "@/components/selectors/random-seed-selector";
+import { SystemMessageSelector } from "@/components/selectors/system-message-selector";
+import { ApiKeyDialog } from "@/components/dialogs/api-key-dialog";
 import { useStore } from "@/hooks/use-store";
 import { ModelType } from "@/types/Model";
 import { Chat } from "@/components/chat/chat";
-import { Embedding } from "@/components/embedding";
+import { Embedding } from "@/components/embedding/embedding";
 
 export default function Home() {
   const apiKey = useStore((state) => state.apiKey);
@@ -30,7 +30,7 @@ export default function Home() {
 
   const [allowApiKeyDialogClose, setAllowApiKeyDialogClose] =
     React.useState<boolean>(false);
-  const [openSettings, setOpenSettings] = React.useState<boolean>(true);
+  const [openSettings, setOpenSettings] = React.useState<boolean>(false);
   const [isApiKeyDialogOpen, setIsApiKeyDialogOpen] =
     React.useState<boolean>(false);
 

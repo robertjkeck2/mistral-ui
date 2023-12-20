@@ -4,7 +4,7 @@ import * as React from "react";
 
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/ui/hover-card";
 import { Label } from "@/ui/label";
-import { Textarea } from "./ui/textarea";
+import { Textarea } from "@/ui/textarea";
 import { useStore } from "@/hooks/use-store";
 
 export function SystemMessageSelector() {
