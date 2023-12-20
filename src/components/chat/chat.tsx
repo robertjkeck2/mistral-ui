@@ -11,11 +11,16 @@ import { ChatMessages } from "./chat-messages";
 export function Chat() {
   const chatText = useStore((state) => state.chatText);
   const setChatText = useStore((state) => state.setChatText);
+  const addChatMessage = useStore((state) => state.addChatMessage);
 
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   const sendMessage = () => {
     setIsLoading(true);
+    addChatMessage({
+      role: "user",
+      content: chatText,
+    });
     // TODO - call chat API
     // const response = await sendChat(chatText);
     // updateChat(response);

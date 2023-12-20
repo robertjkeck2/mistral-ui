@@ -26,7 +26,7 @@ type Store = {
   setAvailableModels: (models: Model<ModelType>[], type: ModelType) => void;
   setEmbeddingText: (embeddingText: string) => void;
   setChatText: (chatText: string) => void;
-  setChatMessages: (chatMessages: ChatMessage[]) => void;
+  addChatMessage: (chatMessage: ChatMessage) => void;
 };
 
 export const useStore = create<Store>((set) => ({
@@ -57,5 +57,8 @@ export const useStore = create<Store>((set) => ({
     }),
   setEmbeddingText: (embeddingText: string) => set({ embeddingText }),
   setChatText: (chatText: string) => set({ chatText }),
-  setChatMessages: (chatMessages: ChatMessage[]) => set({ chatMessages }),
+  addChatMessage: (chatMessage: ChatMessage) =>
+    set((state) => ({
+      chatMessages: [...state.chatMessages, chatMessage],
+    })),
 }));
