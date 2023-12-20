@@ -28,7 +28,7 @@ export function Embedding() {
           className="h-full min-h-[300px] max-h-[700px] lg:min-h-[700px] xl:min-h-[700px]"
           onChange={(e) => setEmbeddingText(e.target.value)}
         />
-        <div className="rounded-md border bg-muted">
+        <div className="rounded-md border bg-muted min-h-[300px] max-h-[700px] lg:min-h-[700px] xl:min-h-[700px] overflow-auto">
           <div className="p-4">{embedding}</div>
         </div>
       </div>
