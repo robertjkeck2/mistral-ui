@@ -26,6 +26,7 @@ export function Embedding() {
         <Textarea
           placeholder="Paste your text to embed here."
           className="h-full min-h-[300px] max-h-[700px] lg:min-h-[700px] xl:min-h-[700px]"
+          value={embeddingText}
           onChange={(e) => setEmbeddingText(e.target.value)}
         />
         <div className="rounded-md border bg-muted min-h-[300px] max-h-[700px] lg:min-h-[700px] xl:min-h-[700px] overflow-auto">

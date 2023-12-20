@@ -21,6 +21,7 @@ export function Chat() {
       role: "user",
       content: chatText,
     });
+    setChatText("");
     // TODO - call chat API
     // const response = await sendChat(chatText);
     // updateChat(response);
@@ -33,6 +34,7 @@ export function Chat() {
         <Input
           type="text"
           placeholder="Type a message..."
+          value={chatText}
           onChange={(e) => setChatText(e.target.value)}
         />
         <Button onClick={sendMessage} disabled={isLoading || chatText == ""}>
