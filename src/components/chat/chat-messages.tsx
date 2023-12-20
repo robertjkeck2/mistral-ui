@@ -6,9 +6,10 @@ import Image from "next/image";
 
 interface ChatMessagesProps {
   messages?: any[];
+  isLoading?: boolean;
 }
 
-export function ChatMessages({ messages }: ChatMessagesProps) {
+export function ChatMessages({ messages, isLoading }: ChatMessagesProps) {
   React.useEffect(() => {
     scrollToEnd();
   }, [messages]);
@@ -25,7 +26,8 @@ export function ChatMessages({ messages }: ChatMessagesProps) {
         className="flex flex-col w-full overflow-y-auto px-4"
       >
         {!messages ||
-          (messages.length == 0 && (
+          (messages.filter((message) => message.role !== "system").length ==
+            0 && (
             <div className="flex flex-col w-full h-full space-y-2 justify-center items-center">
               <Image
                 src="/mistral-m.png"
@@ -70,6 +72,29 @@ export function ChatMessages({ messages }: ChatMessagesProps) {
               </div>
             </div>
           ))}
+        {isLoading && (
+          <div key="thinking" className="flex flex-col space-y-2">
+            <div className="flex items-center space-x-2">
+              <div className="flex items-center justify-center w-6 h-6 bg-black border border-white rounded-full">
+                <span className="text-sm font-bold text-white">
+                  <Image
+                    src="/mistral-m.png"
+                    width={14}
+                    height={14}
+                    alt="Mistral"
+                    className="block"
+                  />
+                </span>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-sm font-bold text-gray-400">Mistral</span>
+              </div>
+            </div>
+            <div className="flex flex-col pb-6">
+              <span className="text-md text-gray-300">⚪</span>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

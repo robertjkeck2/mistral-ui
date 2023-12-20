@@ -5,8 +5,8 @@ import { fontSans } from "@/lib/fonts";
 import { ThemeProvider } from "@/components/providers";
 
 export const metadata: Metadata = {
-  title: "Mistral UI",
-  description: "Next.js UI for Mistral AI platform",
+  title: "Mistral Playground",
+  description: "Playground for the Mistral AI platform",
 };
 
 interface RootLayoutProps {

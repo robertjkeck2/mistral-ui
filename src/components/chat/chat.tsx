@@ -19,7 +19,9 @@ export function Chat() {
   const safeMode = useStore((state) => state.safeMode);
   const temperature = useStore((state) => state.temperature);
   const systemMessage = useStore((state) => state.systemMessage);
+
   const [showError, setShowError] = React.useState<boolean>(false);
+  const [isThinking, setIsThinking] = React.useState<boolean>(false);
 
   const initialMessages: Message[] = [];
   if (systemMessage != "") {
@@ -42,6 +44,9 @@ export function Chat() {
         temperature,
       },
       initialMessages,
+      onResponse: () => {
+        setIsThinking(false);
+      },
       onFinish: (message) => {
         if (message.content == "") {
           setShowError(true);
@@ -51,9 +56,12 @@ export function Chat() {
 
   return (
     <div className="flex h-full flex-col space-y-4 w-full items-center">
-      <ChatMessages messages={messages} />
+      <ChatMessages messages={messages} isLoading={isLoading && isThinking} />
       <form
-        onSubmit={handleSubmit}
+        onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+          setIsThinking(true);
+          handleSubmit(e);
+        }}
         className="flex w-5/6 items-center space-x-2"
       >
         <Input
@@ -62,7 +70,7 @@ export function Chat() {
           value={input}
           onChange={handleInputChange}
         />
-        <Button disabled={isLoading || input == ""}>
+        <Button type="submit" disabled={isLoading || input == ""}>
           <PaperPlaneIcon className="h-4 w-4" />
         </Button>
       </form>
