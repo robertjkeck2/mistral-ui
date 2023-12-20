@@ -41,7 +41,7 @@ export function ApiKeyDialog({ open, onOpenChange }: ApiKeyDialogProps) {
 
   return (
     <Dialog open={open} onOpenChange={() => onOpenChange(false)}>
-      <DialogContent className="sm:max-w-[475px]">
+      <DialogContent className="w-5/6 sm:max-w-[475px]">
         <form onSubmit={saveApiKey}>
           <DialogHeader>
             <DialogTitle>API Key</DialogTitle>
@@ -68,8 +68,8 @@ export function ApiKeyDialog({ open, onOpenChange }: ApiKeyDialogProps) {
               />
             </div>
           </div>
-          <DialogFooter className="items-center">
-            <div className="flex">
+          <DialogFooter className="sm:items-center">
+            <div className="flex order-1">
               <Checkbox
                 id="remember"
                 className="mx-2"
@@ -91,6 +91,7 @@ export function ApiKeyDialog({ open, onOpenChange }: ApiKeyDialogProps) {
               </div>
             </div>
             <Button
+              className="w-full mt-4 sm:mt-0 sm:w-1/6 sm:order-2"
               type="submit"
               disabled={apiKey.length < 24 || apiKey.length > 40}
             >
