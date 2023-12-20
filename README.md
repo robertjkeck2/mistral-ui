@@ -1,6 +1,6 @@
 # Mistral Playground
 
-Playground for the Mistral AI platform
+Open source playground for the Mistral AI platform
 
 ## Getting Started
 
@@ -27,6 +27,8 @@ Playground for the Mistral AI platform
 3. Try out different models, temperature, top-p, and safe mode settings.
 4. Click the square rule button to switch to embeddings mode.
 5. Paste in text you'd like to embed and click `Create Embedding`.
+
+### Screenshots
 
 ### Mistral console
 
