@@ -1,4 +1,4 @@
-import { DotsHorizontalIcon, ExternalLinkIcon } from "@radix-ui/react-icons";
+import { GearIcon, ExternalLinkIcon } from "@radix-ui/react-icons";
 
 import { Button } from "@/ui/button";
 import {
@@ -24,7 +24,7 @@ export function PresetActions({ onApiKeyChangeClick }: PresetActionsProps) {
         <DropdownMenuTrigger asChild>
           <Button variant="secondary">
             <span className="sr-only">Actions</span>
-            <DotsHorizontalIcon className="h-4 w-4" />
+            <GearIcon className="h-4 w-4" />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">

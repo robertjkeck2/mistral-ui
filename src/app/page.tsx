@@ -52,22 +52,28 @@ export default function Home() {
 
   return (
     <>
-      <div className="hidden h-full flex-col md:flex">
+      <div className="h-full flex-col md:flex">
         <div className="container flex flex-col items-start justify-between space-y-2 py-4 sm:flex-row sm:items-center sm:space-y-0 md:h-16">
           <Image
             src="/logo-dark.svg"
             width={90}
-            height={60}
+            height={70}
             alt="Mistral"
             className="block"
           />
-          <div className="ml-auto flex w-full space-x-2 sm:justify-end">
-            <Button variant="secondary" onClick={handleToggleSettings}>
-              Toggle Settings
-            </Button>
-            <PresetActions
-              onApiKeyChangeClick={() => setIsApiKeyDialogOpen(true)}
-            />
+          <div className="absolute top-1 right-3 sm:top-3">
+            <div className="flex space-x-2">
+              <Button
+                className="hidden sm:flex"
+                variant="secondary"
+                onClick={handleToggleSettings}
+              >
+                Toggle Settings
+              </Button>
+              <PresetActions
+                onApiKeyChangeClick={() => setIsApiKeyDialogOpen(true)}
+              />
+            </div>
           </div>
         </div>
         <Separator />
@@ -83,7 +89,7 @@ export default function Home() {
               }`}
             >
               {openSettings && (
-                <div className="hidden flex-col space-y-4 sm:flex md:order-2">
+                <div className="hidden flex-col space-y-4 sm:flex order-2">
                   <div className="grid gap-2">
                     <TabsList className="grid grid-cols-2">
                       <TabsTrigger value="chat">
@@ -109,7 +115,7 @@ export default function Home() {
                   )}
                 </div>
               )}
-              <div className="md:order-1">
+              <div className="order-1">
                 <TabsContent value="chat" className="mt-0 border-0 p-0">
                   <Chat />
                 </TabsContent>
