@@ -27,9 +27,9 @@ export function Chat() {
   };
 
   return (
-    <div className="flex h-full flex-col space-y-4">
+    <div className="flex h-full flex-col space-y-4 w-full items-center">
       <ChatMessages />
-      <div className="flex w-full items-center space-x-2">
+      <div className="flex w-5/6 items-center space-x-2">
         <Input
           type="text"
           placeholder="Type a message..."

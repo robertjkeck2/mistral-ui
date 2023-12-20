@@ -18,17 +18,32 @@ export function ChatMessages() {
   };
 
   return (
-    <div className="flex w-full min-h-[650px] max-h-[650px]">
+    <div className="flex w-5/6 min-h-[650px] max-h-[650px]">
       <div
         id="chatMessages"
         className="flex flex-col w-full overflow-y-auto px-4"
       >
+        {!chatMessages ||
+          (chatMessages.length == 0 && (
+            <div className="flex flex-col w-full h-full space-y-2 justify-center items-center">
+              <Image
+                src="/mistral-m.png"
+                width={50}
+                height={50}
+                alt="Mistral"
+                className="block pb-4"
+              />
+              <span className="text-lg font-bold text-gray-300">
+                What can I help you with?
+              </span>
+            </div>
+          ))}
         {chatMessages
           .filter((message) => message.role != "system")
           .map((message, index) => (
             <div key={index} className="flex flex-col space-y-2">
               <div className="flex items-center space-x-2">
-                <div className="flex items-center justify-center w-6 h-6 bg-mistralGray rounded-full">
+                <div className="flex items-center justify-center w-6 h-6 bg-black border border-white rounded-full">
                   <span className="text-sm font-bold text-white">
                     {message.role == "user" ? (
                       <PersonIcon width={14} height={14} />
