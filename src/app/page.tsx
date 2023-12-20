@@ -53,15 +53,21 @@ export default function Home() {
   return (
     <>
       <div className="h-full flex-col md:flex">
-        <div className="container flex flex-col items-start justify-between space-y-2 py-4 sm:flex-row sm:items-center sm:space-y-0 md:h-16">
-          <Image
-            src="/logo-dark.svg"
-            width={90}
-            height={70}
-            alt="Mistral"
-            className="block"
-          />
-          <div className="absolute top-1 right-3 sm:top-3">
+        <div className="container flex flex-col items-start justify-between space-y-2 py-4 sm:flex-row sm:items-center space-y-0 h-16">
+          <div className="absolute top-4 left-3">
+            <Image
+              src="/logo-dark.svg"
+              width={90}
+              height={70}
+              alt="Mistral"
+              className="block"
+            />
+          </div>
+          <div className="absolute top-1.5 left-12">
+            <p className="text-xs font-mono font-semibold">PLAY</p>
+            <p className="text-xs font-mono font-semibold">GROUND_</p>
+          </div>
+          <div className="absolute right-3 top-1">
             <div className="flex space-x-2">
               <Button
                 className="hidden sm:flex"
