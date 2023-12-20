@@ -1,5 +1,5 @@
 import { models } from "@/data/models";
-import { Model, ModelType } from "@/types/Models";
+import { Model, ModelType } from "@/types/Model";
 import { create } from "zustand";
 
 type Store = {
@@ -12,6 +12,9 @@ type Store = {
   randomSeed: number;
   systemMessage: string;
   availableModels: Model<ModelType>[];
+  embeddingText: string;
+  chatText: string;
+  chatMessages: ChatMessage[];
   setApiKey: (apiKey: string) => void;
   setModel: (model: string) => void;
   setSafeMode: (safeMode: boolean) => void;
@@ -21,6 +24,9 @@ type Store = {
   setRandomSeed: (randomSeed: number) => void;
   setSystemMessage: (systemMessage: string) => void;
   setAvailableModels: (models: Model<ModelType>[], type: ModelType) => void;
+  setEmbeddingText: (embeddingText: string) => void;
+  setChatText: (chatText: string) => void;
+  addChatMessage: (chatMessage: ChatMessage) => void;
 };
 
 export const useStore = create<Store>((set) => ({
@@ -33,6 +39,9 @@ export const useStore = create<Store>((set) => ({
   randomSeed: 0,
   systemMessage: "",
   availableModels: models.filter((model) => model.type === "chat"),
+  embeddingText: "",
+  chatText: "",
+  chatMessages: [],
   setApiKey: (apiKey: string) => set({ apiKey }),
   setModel: (model: string) => set({ model }),
   setSafeMode: (safeMode: boolean) => set({ safeMode }),
@@ -46,4 +55,10 @@ export const useStore = create<Store>((set) => ({
       availableModels: models.filter((model) => model.type === type),
       model: models.filter((model) => model.type === type)[0].name,
     }),
+  setEmbeddingText: (embeddingText: string) => set({ embeddingText }),
+  setChatText: (chatText: string) => set({ chatText }),
+  addChatMessage: (chatMessage: ChatMessage) =>
+    set((state) => ({
+      chatMessages: [...state.chatMessages, chatMessage],
+    })),
 }));

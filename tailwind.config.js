@@ -52,6 +52,9 @@ export const theme = {
         DEFAULT: "hsl(var(--card))",
         foreground: "hsl(var(--card-foreground))",
       },
+      mistralGray: {
+        DEFAULT: "hsl(220, 7%, 18%)",
+      },
     },
     borderRadius: {
       lg: "var(--radius)",

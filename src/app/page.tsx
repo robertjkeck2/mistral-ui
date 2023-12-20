@@ -7,7 +7,6 @@ import { ChatBubbleIcon, RulerSquareIcon } from "@radix-ui/react-icons";
 import { Button } from "@/ui/button";
 import { Separator } from "@/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/ui/tabs";
-import { Textarea } from "@/ui/textarea";
 
 import { MaxTokensSelector } from "../components/maxtokens-selector";
 import { ModelSelector } from "../components/model-selector";
@@ -20,7 +19,9 @@ import { RandomSeedSelector } from "@/components/random-seed-selector";
 import { SystemMessageSelector } from "@/components/system-message-selector";
 import { ApiKeyDialog } from "@/components/api-key-dialog";
 import { useStore } from "@/hooks/use-store";
-import { ModelType } from "@/types/Models";
+import { ModelType } from "@/types/Model";
+import { Chat } from "@/components/chat/chat";
+import { Embedding } from "@/components/embedding";
 
 export default function Home() {
   const apiKey = useStore((state) => state.apiKey);
@@ -110,29 +111,10 @@ export default function Home() {
               )}
               <div className="md:order-1">
                 <TabsContent value="chat" className="mt-0 border-0 p-0">
-                  <div className="flex h-full flex-col space-y-4">
-                    <Textarea
-                      placeholder="Write a tagline for an ice cream shop"
-                      className="min-h-[400px] flex-1 p-4 md:min-h-[700px] lg:min-h-[700px]"
-                    />
-                    <div className="flex items-center space-x-2">
-                      <Button>Submit</Button>
-                    </div>
-                  </div>
+                  <Chat />
                 </TabsContent>
                 <TabsContent value="embedding" className="mt-0 border-0 p-0">
-                  <div className="flex flex-col space-y-4">
-                    <div className="grid h-full grid-rows-2 gap-6 lg:grid-cols-2 lg:grid-rows-1">
-                      <Textarea
-                        placeholder="We're writing to [inset]. Congrats from OpenAI!"
-                        className="h-full min-h-[300px] lg:min-h-[700px] xl:min-h-[700px]"
-                      />
-                      <div className="rounded-md border bg-muted"></div>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <Button>Submit</Button>
-                    </div>
-                  </div>
+                  <Embedding />
                 </TabsContent>
               </div>
             </div>

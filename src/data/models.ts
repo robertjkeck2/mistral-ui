@@ -1,4 +1,4 @@
-import { Model, ModelType } from "@/types/Models";
+import { Model, ModelType } from "@/types/Model";
 
 export const models: Model<ModelType>[] = [
   {
