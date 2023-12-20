@@ -3,9 +3,9 @@
 import React from "react";
 
 import { PaperPlaneIcon } from "@radix-ui/react-icons";
-import { Button } from "../ui/button";
+import { Button } from "@/ui/button";
 import { useStore } from "@/hooks/use-store";
-import { Input } from "../ui/input";
+import { Input } from "@/ui/input";
 import { ChatMessages } from "./chat-messages";
 
 export function Chat() {

@@ -3,8 +3,8 @@
 import React from "react";
 
 import { useStore } from "@/hooks/use-store";
-import { Button } from "./ui/button";
-import { Textarea } from "./ui/textarea";
+import { Button } from "../ui/button";
+import { Textarea } from "../ui/textarea";
 
 export function Embedding() {
   const embeddingText = useStore((state) => state.embeddingText);

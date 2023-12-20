@@ -4,7 +4,7 @@ import * as React from "react";
 
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/ui/hover-card";
 import { Label } from "@/ui/label";
-import { Input } from "./ui/input";
+import { Input } from "@/ui/input";
 import { useStore } from "@/hooks/use-store";
 
 export function RandomSeedSelector() {
