@@ -2,7 +2,7 @@
 // @ts-ignore
 import MistralClient from "@mistralai/mistralai";
 
-type EmbeddingRequest = {
+type EmbeddingsRequest = {
   model: string;
   input: string | string[];
 };
@@ -10,18 +10,21 @@ type EmbeddingRequest = {
 export async function POST(req: Request) {
   const { apiKey, model, input } = await req.json();
 
+  if (!apiKey) {
+    return new Response(JSON.stringify({ error: "API key required" }), {
+      status: 400,
+    });
+  }
+
   // Create a new Mistral client instance with the user-provided API key
   const client = new MistralClient(apiKey || "");
 
-  let chatRequest: EmbeddingRequest = {
+  let embeddingsRequest: EmbeddingsRequest = {
     model,
     input,
   };
 
-  const response = await client.chatStream(chatRequest);
+  const response = await client.embeddings(embeddingsRequest);
 
-  // Convert the response into a friendly text-stream. The Mistral client responses are
-  // compatible with the Vercel AI SDK OpenAIStream adapter.
-  const stream = OpenAIStream(response);
-  return new StreamingTextResponse(stream);
+  return new Response(JSON.stringify(response));
 }
