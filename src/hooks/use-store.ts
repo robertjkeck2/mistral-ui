@@ -1,6 +1,7 @@
 import { models } from "@/data/models";
 import { Model, ModelType } from "@/types/Model";
 import { create } from "zustand";
+import Cookies from "js-cookie";
 
 type Store = {
   apiKey: string;
@@ -26,7 +27,7 @@ type Store = {
 };
 
 export const useStore = create<Store>((set) => ({
-  apiKey: "",
+  apiKey: Cookies.get("mistral-key") || "",
   model: "mistral-tiny",
   safeMode: false,
   temperature: 0.7,
