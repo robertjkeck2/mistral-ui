@@ -31,12 +31,15 @@ Open source playground for the Mistral AI platform
 ### Screenshots
 
 #### Home
+
 <img width="1281" alt="home" src="https://github.com/robertjkeck2/mistral-ui/assets/18727700/0b48aca1-0f59-494b-bb22-75a3e7654e16">
 
 #### Chat
+
 <img width="1278" alt="chat" src="https://github.com/robertjkeck2/mistral-ui/assets/18727700/f9ba3472-d980-4e8d-a9e7-01a51f34ca81">
 
 #### Embeddings
+
 <img width="1284" alt="embeddings" src="https://github.com/robertjkeck2/mistral-ui/assets/18727700/65c6df93-ef6f-4df0-84b8-7001e1409ec8">
 
 ### Mistral console
@@ -46,3 +49,5 @@ https://console.mistral.ai/
 ### License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/robertjkeck2)

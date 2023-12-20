@@ -18,6 +18,10 @@ export function PresetActions({ onApiKeyChangeClick }: PresetActionsProps) {
     window.open("https://docs.mistral.ai", "_blank");
   };
 
+  const openGithub = () => {
+    window.open("https://github.com/robertjkeck2/mistral-ui", "_blank");
+  };
+
   return (
     <>
       <DropdownMenu>
@@ -33,7 +37,10 @@ export function PresetActions({ onApiKeyChangeClick }: PresetActionsProps) {
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem onSelect={openDocs}>
-            View Docs <ExternalLinkIcon className="w-4 h-4 ml-2" />
+            Mistral Docs <ExternalLinkIcon className="w-4 h-4 ml-2" />
+          </DropdownMenuItem>
+          <DropdownMenuItem onSelect={openGithub}>
+            GitHub <ExternalLinkIcon className="w-4 h-4 ml-2" />
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
