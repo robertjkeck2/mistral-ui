@@ -12,23 +12,27 @@ export const useEmbeddings = (apiKey: string, model: string) => {
     []
   );
 
-  const handleSubmit = React.useCallback(async () => {
-    setIsLoading(true);
-    const response = await fetch("/api/embeddings", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        apiKey,
-        model,
-        input,
-      }),
-    });
-    const json = await response.json();
-    setEmbeddings(json);
-    setIsLoading(false);
-  }, [apiKey, model, input]);
+  const handleSubmit = React.useCallback(
+    async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      setIsLoading(true);
+      const response = await fetch("/api/embeddings", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          apiKey,
+          model,
+          input,
+        }),
+      });
+      const json = await response.json();
+      setEmbeddings(json);
+      setIsLoading(false);
+    },
+    [apiKey, model, input]
+  );
 
   return { embeddings, isLoading, input, handleInputChange, handleSubmit };
 };

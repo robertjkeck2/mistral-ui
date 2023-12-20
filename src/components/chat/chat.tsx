@@ -70,7 +70,7 @@ export function Chat() {
           value={input}
           onChange={handleInputChange}
         />
-        <Button disabled={isLoading || input == ""}>
+        <Button type="submit" disabled={isLoading || input == ""}>
           <PaperPlaneIcon className="h-4 w-4" />
         </Button>
       </form>

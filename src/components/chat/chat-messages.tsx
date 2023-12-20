@@ -26,7 +26,8 @@ export function ChatMessages({ messages, isLoading }: ChatMessagesProps) {
         className="flex flex-col w-full overflow-y-auto px-4"
       >
         {!messages ||
-          (messages.length == 0 && (
+          (messages.filter((message) => message.role !== "system").length ==
+            0 && (
             <div className="flex flex-col w-full h-full space-y-2 justify-center items-center">
               <Image
                 src="/mistral-m.png"
