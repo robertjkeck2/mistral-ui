@@ -5,20 +5,14 @@ import React from "react";
 import { useStore } from "@/hooks/use-store";
 import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
+import { useEmbeddings } from "@/hooks/use-embeddings";
 
 export function Embedding() {
-  const embeddingText = useStore((state) => state.embeddingText);
-  const setEmbeddingText = useStore((state) => state.setEmbeddingText);
+  const apiKey = useStore((state) => state.apiKey);
+  const model = useStore((state) => state.model);
 
-  const [embedding, setEmbedding] = React.useState<string>("");
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
-
-  const handleEmbedding = () => {
-    setIsLoading(true);
-    // TODO - call embedding API
-    // const embedding = await getEmbedding(embeddingText);
-    // setEmbedding(embedding);
-  };
+  const { embeddings, isLoading, input, handleInputChange, handleSubmit } =
+    useEmbeddings(apiKey, model);
 
   return (
     <div className="flex flex-col space-y-4">
@@ -26,18 +20,17 @@ export function Embedding() {
         <Textarea
           placeholder="Paste your text to embed here."
           className="h-full min-h-[300px] max-h-[700px] lg:min-h-[700px] xl:min-h-[700px]"
-          value={embeddingText}
-          onChange={(e) => setEmbeddingText(e.target.value)}
+          value={input}
+          onChange={handleInputChange}
         />
-        <div className="rounded-md border bg-muted min-h-[300px] max-h-[700px] lg:min-h-[700px] xl:min-h-[700px] overflow-auto">
-          <div className="p-4">{embedding}</div>
+        <div className="text-sm rounded-md border bg-muted min-h-[300px] max-h-[700px] lg:min-h-[700px] xl:min-h-[700px] overflow-auto">
+          <div className="p-4">
+            <pre>{JSON.stringify(embeddings, null, 2)}</pre>
+          </div>
         </div>
       </div>
       <div className="flex items-center space-x-2">
-        <Button
-          onClick={handleEmbedding}
-          disabled={isLoading || embeddingText == ""}
-        >
+        <Button onClick={handleSubmit} disabled={isLoading || input == ""}>
           Create Embedding
         </Button>
       </div>
