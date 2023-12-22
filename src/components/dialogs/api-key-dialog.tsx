@@ -55,7 +55,10 @@ export function ApiKeyDialog({ open, onOpenChange }: ApiKeyDialogProps) {
               >
                 https://console.mistral.ai/
               </Link>
-              .
+              .{" "}
+              <i className="text-red-400">
+                Warning: API keys are sensitive and tied to your subscription.
+              </i>
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
