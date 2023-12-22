@@ -68,7 +68,7 @@ export default function Home() {
             <p className="text-xs font-mono font-semibold">GROUND_</p>
           </div>
           <div className="absolute top-1 left-32">
-            <p className="flex items-center text-xs font-mono font-semibold">
+            <p className="flex items-center text-xs">
               Powered by{" "}
               <Image
                 src="/mistral.png"
