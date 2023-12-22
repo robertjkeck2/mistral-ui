@@ -30,9 +30,9 @@ export function ChatMessages({ messages, isLoading }: ChatMessagesProps) {
             0 && (
             <div className="flex flex-col w-full h-full space-y-2 justify-center items-center">
               <Image
-                src="/mistral-m.png"
-                width={50}
-                height={50}
+                src="/playground.png"
+                width={60}
+                height={60}
                 alt="Mistral"
                 className="block pb-4"
               />
