@@ -32,15 +32,19 @@ Open source playground for the Mistral AI platform
 
 #### Home
 
-<img width="1281" alt="home" src="https://github.com/robertjkeck2/mistral-ui/assets/18727700/0b48aca1-0f59-494b-bb22-75a3e7654e16">
+<img width="1286" alt="Screenshot 2023-12-21 at 8 42 00 PM" src="https://github.com/robertjkeck2/mistral-ui/assets/18727700/06aef4f8-1e1f-47dd-a4d3-e9f3acf8d967">
+
+### Home with settings
+
+<img width="1283" alt="Screenshot 2023-12-21 at 8 43 58 PM" src="https://github.com/robertjkeck2/mistral-ui/assets/18727700/aca9389f-cbcc-419c-b8ed-2191b49a960c">
 
 #### Chat
 
-<img width="1278" alt="chat" src="https://github.com/robertjkeck2/mistral-ui/assets/18727700/f9ba3472-d980-4e8d-a9e7-01a51f34ca81">
+<img width="1282" alt="Screenshot 2023-12-21 at 8 43 16 PM" src="https://github.com/robertjkeck2/mistral-ui/assets/18727700/e0fe484c-3e21-46f6-a74d-a4f636e623ec">
 
 #### Embeddings
 
-<img width="1284" alt="embeddings" src="https://github.com/robertjkeck2/mistral-ui/assets/18727700/65c6df93-ef6f-4df0-84b8-7001e1409ec8">
+<img width="1282" alt="Screenshot 2023-12-21 at 8 43 47 PM" src="https://github.com/robertjkeck2/mistral-ui/assets/18727700/ff5df6df-63b7-4277-9f7a-6c85c18b6de7">
 
 ### Mistral console
 
