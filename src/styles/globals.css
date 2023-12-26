@@ -57,6 +57,9 @@
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
+  code {
+    @apply text-xs;
+  }
 }
 
 @layer utilities {
