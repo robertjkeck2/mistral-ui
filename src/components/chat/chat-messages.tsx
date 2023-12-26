@@ -3,6 +3,7 @@
 import React from "react";
 import { PersonIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
+import Markdown from "react-markdown";
 
 interface ChatMessagesProps {
   messages?: any[];
@@ -68,7 +69,9 @@ export function ChatMessages({ messages, isLoading }: ChatMessagesProps) {
                 </div>
               </div>
               <div className="flex flex-col pb-6">
-                <span className="text-md text-gray-300">{message.content}</span>
+                <span className="text-md text-gray-300">
+                  <Markdown>{message.content}</Markdown>
+                </span>
               </div>
             </div>
           ))}
